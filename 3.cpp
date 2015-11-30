@@ -8,7 +8,7 @@ int main()
 	float min, max;
 	srand(time(0)); /* ustawiamy ziarnko zalezne od czasu, zeby funkcja rand() nie zwracala tych samych wartosci */
 	
-/* ZAPISANIE DO PLIKU 10 000 losowych liczb rzeczywistych z rozkladu normalnego (Gaussa) */
+/* ZAPISANIE DO PLIKU "dane.txt" 10 000 losowych liczb rzeczywistych z rozkladu normalnego (Gaussa) */
 	FILE *file = fopen("dane.txt", "wt");
 	for(int i = 0; i < 10000; i++)
 	{
