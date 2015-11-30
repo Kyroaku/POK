@@ -12,12 +12,12 @@ int main()
 	
 	srand(time(0)); /* ustawiamy ziarnko zalezne od czasu, zeby funkcja rand() nie zwracala tych samych wartosci */
 	
-/* UTWORZENIE PLIKU Z WYLOSOWANYMI WARTOSCIAMI */
+/* TWORZENIE PLIKU Z WYLOSOWANYMI WARTOSCIAMI */
 
 	/* otworz plik "dane.txt" w trybie zapisu pliku tekstowego ("wt") */
     FILE *file = fopen("dane.txt", "wt");
-    /* wylosuj ilosc liczb, ktore zostana zapisane do pliku (w tym przypadku z przedzialu <5000; 10000)*/
-    int N = ( rand()%10000 ) + 5000; /* zakladam, ze nie znam tej wartosci i nie wiem, ile liczb jest w pliku */
+    /* wylosuj ilosc liczb, ktore zostana zapisane do pliku (w tym przypadku z przedzialu <5000; 10000) */
+    int N = ( rand()%10000 ) + 5000; /* zakladam, ze pozniej nie znam tej wartosci i nie wiem, ile liczb jest w pliku */
     /* zapisz do pliku N losowych liczb rzeczywistych */
     for(int i = 0; i < N; i++)
     {
@@ -31,14 +31,14 @@ int main()
 	}
 	fclose(file);
 	
-/* OBLICZENIE WARTOSCI SREDNIEJ */
+/* OBLICZANIE WARTOSCI SREDNIEJ */
 
 	/* otworz plik "dane.txt" w trybie odczytu pliku tekstowego ("rt") */
 	file = fopen("dane.txt", "rt");
 	/* wykonuj, dopoki nie ma konca pliku */
 	while(!feof(file))
 	{
-		/* wczytaj wartosc z pliku do zmiennej x */
+		/* wczytaj wartosc z pliku "dane.txt" do zmiennej x */
 		float x;
 		fscanf(file, "%f\n", &x);
 		
@@ -52,12 +52,12 @@ int main()
 	/* przejdz do poczatku pliku */
 	rewind(file);
 	
-/* OBLICZENIE ODCHYLENIA */
+/* OBLICZANIE ODCHYLENIA */
 
 	while(!feof(file))
 	{
+	    /* wczytaj wartosc z pliku do zmiennej x */
 		float x;
-		/* wczytaj wartosc z pliku do zmiennej x */
 		fscanf(file, "%f\n", &x);
 		
 		/* wykorzystamy zmienna suma do obliczenia odchylenia */
@@ -67,6 +67,7 @@ int main()
 	
 	/* Wartosci srednia i odchylenie powinny dazyc do wartosci 0.0 oraz 1.0 */
 	printf("Srednia: %f\nOdchylenie: %f\n", srednia, odchylenie);
+	
 	rewind(file);
 	
 /* WYZNACZENIE ILOSCI LICZB Z DANYCH PRZEDZIALOW */
@@ -77,10 +78,11 @@ int main()
 		
 	while(!feof(file))
 	{
+	    /* wczytaj liczbe z pliku "dane.txt" */
 		float x;
 		fscanf(file, "%f\n", &x);
 		/* sprawdzanie, czy wczytana wartosc nalezy do przedzialow.
-			Bez uzycia "else", poniewaz wartosc moze nalezec do wszystkich przedzialow jednoczesnie */
+			Bez uzycia "else", poniewaz wartosc moze nalezec do kilku przedzialow jednoczesnie */
 		if(x >= srednia-odchylenie && x <= srednia+odchylenie)
 			p1++;
 		if(x >= srednia-2.0*odchylenie && x <= srednia+2.0*odchylenie)
@@ -99,21 +101,23 @@ int main()
 	
 /* ZAPIS DANYCH DO PLIKU "raport.txt" */
 	
-	/* Otwieramy plik "raport.txt" w trybie zapisu pliku tekstowego (jesli go nie ma, to sam sie utworzy) */
+	/* Otwieramy plik "raport.txt" w trybie zapisu pliku tekstowego (jesli go nie ma, to sie utworzy) */
 	file = fopen("raport.txt", "wt");
 	fprintf(file, "%f %f %d %d %d",
 		srednia, odchylenie, p1, p2, p3);
+    
 	fclose(file);
 		
 /* ================================== ZADANIE 2 ================================== */
+    /* otwieramy ponownie plik "dane.txt". Bedziemy w nim szukac liczb z danego przedzialu */
 	file = fopen("dane.txt", "rt");
 	/* otwiera plik "ndane.txt" w trybie zapisu pliku tekstowego */
 	FILE *fileN = fopen("ndane.txt", "wt");
 	/* dopoki nie ma konca pliku "dane.txt" */
 	while(!feof(file))
 	{
+	    /* wczytaj wartosc do zmiennej x z pliku "dane.txt" */
 		float x;
-		/* wczytaj wartosc do zmiennej x z pliku "dane.txt" */
 		fscanf(file, "%f\n", &x);
 		if(x >= srednia-odchylenie && x <= srednia+odchylenie) /* jesli x nalezy do przedzialu */
 			/* zapisz x do pliku "ndane.txt" */
