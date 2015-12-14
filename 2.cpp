@@ -3,16 +3,17 @@
 
 float func(float a[20], int N, float x)
 {
-	float w[2]; /* ta tablica bedzie przechowywac wartosci w[0] = Wi, w[1] = Wi+1, potrzebne we wzorze */
-	w[0] = a[N-1]; /* W1 = aN (w tresci zadania) */
+	float w;
+	w = a[N-1]; /* W1 = aN (w tresci zadania) */
 	for(int i = 1; i < N; i++) /* zaczynamy od i=1, poniewaz pierwsza wartosc juz mamy obliczona linijke wyzej */
 	{
-		w[1] = w[0]*x + a[N-i-1]; /* po prostu podstawiamy do wzoru z tresci zadania (Wi+1 = Wix + aN-1),
+		w = w*x + a[N-i-1]; /* po prostu podstawiamy do wzoru z tresci zadania (Wi+1 = Wix + aN-1),
 										pamietajac, ze my zaczynamy indeksowanie od 0 */
-		w[0] = w[1]; /* przepisujemy wartosc, poniewaz w polu w[0] musimy trzymac wartosc poprzedniego wyrazenia */
+		/* w tym momencie zmienna 'w' przechowuje nam wartosc poprzednia (Wi) i mozemy ja wykorzystac do obliczenia nowej wartosci
+		    w tej samej zmiennej */
 	}
 	/* zwracamy wynik */
-	return w[1];
+	return w;
 }
 
 int main()
